@@ -1,1 +1,8 @@
-<h1>Cool</h1>
+{{link-to 'Back' 'index'}}
+{{model.url}}
+
+{{#each tag in model.tags}}
+  {{link-to tag 'tags.show' tag}}
+{{/each}}
+
+{{outlet}}
