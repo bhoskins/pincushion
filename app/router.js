@@ -7,6 +7,10 @@ var Router = Ember.Router.extend({
 
 Router.map(function() {
   this.route('show', { path: '/show/:bookmark_id' });
+
+  this.route('tags', function() {
+    this.route('shew', {path: '/:tag'});
+  });
 });
 
 export default Router;
