@@ -1,0 +1,7 @@
+{{outlet}}
+
+<ul>
+{{#each bookmark in model}}
+  <li>{{link-to bookmark.url 'show' bookmark}}</li>
+{{/each}}
+</ul>
