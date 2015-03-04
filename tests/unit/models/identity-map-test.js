@@ -88,3 +88,12 @@ test('removing an id', function(assert) {
   var typeArray = this.subject().get('type');
   assert.equal( typeArray.length, 0 );
 });
+
+test('clearing a type', function(assert){
+  this.subject().set('type', 'someid', {});
+  var typeArray = this.subject().get('type');
+
+  assert.equal(typeArray.length, 1);
+  this.subject().clear('type');
+  assert.equal(typeArray.length, 0);
+});

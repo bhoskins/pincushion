@@ -37,6 +37,11 @@ export default Ember.Object.extend({
     typeArray.removeObject(record);
   },
 
+  clear: function(type) {
+    var typeArray = this._getType(type);
+    typeArray.splice(0, typeArray.length);
+  },
+
   _getType: function(type) {
     var typeArray = this._map.get(type);
     if(!typeArray){

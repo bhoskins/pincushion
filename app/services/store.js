@@ -19,6 +19,7 @@ export default Ember.Object.extend({
   findAll: function(name){
     var adapter = this.container.lookup('adapter:' + name);
     return adapter.findAll(name).then(function(records) {
+      identityMap.clear(name);
       records.forEach(function(r) {
         identityMap.set(name, r.id, r);
       });
