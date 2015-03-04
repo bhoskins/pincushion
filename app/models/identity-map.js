@@ -28,6 +28,15 @@ export default Ember.Object.extend({
     }
   },
 
+  remove: function(type, record) {
+    var typeArray = this._getType(type);
+    if(typeof(record) !== "object") {
+      // assume it's an id
+      record = typeArray.findBy('__jsim_meta_id', record);
+    }
+    typeArray.removeObject(record);
+  },
+
   _getType: function(type) {
     var typeArray = this._map.get(type);
     if(!typeArray){

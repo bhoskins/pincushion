@@ -24,7 +24,7 @@ test('getting a present id', function(assert) {
 test('getting an empty type is empty', function(assert) {
   var typeArray = this.subject().get('type');
   assert.ok(Ember.isArray(typeArray));
-  assert.equal(typeArray.length, 0);
+  assert.strictEqual(typeArray.length, 0);
 });
 
 test('getting an non empty type is non empty', function(assert) {
@@ -35,10 +35,10 @@ test('getting an non empty type is non empty', function(assert) {
 
   var typeArrayB = this.subject().get('type');
 
-  assert.equal( typeArrayA, typeArrayB );
-  assert.equal( typeArrayA.get('firstObject'), typeArrayB.get('firstObject') );
-  assert.equal( typeArrayA.length, 1 );
-  assert.equal( typeArrayB.length, 1 );
+  assert.strictEqual( typeArrayA, typeArrayB );
+  assert.strictEqual( typeArrayA.get('firstObject'), typeArrayB.get('firstObject') );
+  assert.strictEqual( typeArrayA.length, 1 );
+  assert.strictEqual( typeArrayB.length, 1 );
 });
 
 test('setting an id should update that id if it already exists', function(assert) {
@@ -52,8 +52,8 @@ test('setting an id should update that id if it already exists', function(assert
 
   var resultB = this.subject().get('type', 'someid');
 
-  assert.equal(resultA, resultB);
-  assert.equal(resultA.get('name'), 'thing');
+  assert.strictEqual(resultA, resultB);
+  assert.strictEqual(resultA.get('name'), 'thing');
 
 });
 
@@ -64,5 +64,27 @@ test('create Ember.Object if not already', function(assert) {
 
   var object = Ember.Object.create();
   this.subject().set('type', 'otherid', object);
-  assert.equal(this.subject().get('type', 'otherid'), object);
+  assert.strictEqual(this.subject().get('type', 'otherid'), object);
+});
+
+test('removing a record', function(assert) {
+  this.subject().set('type', 'someid', {});
+  var thing = this.subject().get('type', 'someid');
+  this.subject().remove('type', thing);
+
+  assert.ok( ! this.subject().get('type', 'someid') );
+
+  var typeArray = this.subject().get('type');
+  assert.equal( typeArray.length, 0 );
+});
+
+test('removing an id', function(assert) {
+  this.subject().set('type', 'someid', {});
+  var thing = this.subject().get('type', 'someid');
+  this.subject().remove('type', 'someid');
+
+  assert.ok( ! this.subject().get('type', 'someid') );
+
+  var typeArray = this.subject().get('type');
+  assert.equal( typeArray.length, 0 );
 });
