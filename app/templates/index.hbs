@@ -1,7 +1,10 @@
 {{bookmarksCount}}
 
 <ul>
-{{#each bookmark in model}}
-  <li>{{link-to bookmark.url 'show' bookmark}}</li>
+{{#each bookmark in model itemController="bookmark"}}
+  <li>
+    {{link-to bookmark.model.url 'show' bookmark}}
+    <button {{action 'destroy'}}>X</button>
+  </li>
 {{/each}}
 </ul>
