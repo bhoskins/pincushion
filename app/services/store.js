@@ -18,14 +18,13 @@ export default Ember.Object.extend({
 
   findAll: function(name){
     var adapter = this.container.lookup('adapter:' + name);
-    adapter.findAll(name).then(function(records) {
+    return adapter.findAll(name).then(function(records) {
       records.forEach(function(r) {
         identityMap.set(name, r.id, r);
       });
-    });
 
-    var cached = identityMap.get(name);
-    return Ember.RSVP.resolve(cached);
+      return identityMap.get(name);
+    });
   },
 
   destroy: function(name, record) {
