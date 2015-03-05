@@ -1496,7 +1496,7 @@ catch(err) {
 if (runningTests) {
   require("pincushion/tests/test-helper");
 } else {
-  require("pincushion/app")["default"].create({"name":"pincushion","version":"0.0.0.4e7f6fe7"});
+  require("pincushion/app")["default"].create({"name":"pincushion","version":"0.0.0.34aa63ca"});
 }
 
 /* jshint ignore:end */
