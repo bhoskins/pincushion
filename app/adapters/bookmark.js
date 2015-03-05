@@ -1,8 +1,6 @@
 import ajax from 'ic-ajax';
 import Ember from 'ember';
 
-// TODO: reverse id -> objectId for POST/PUT/DELETE
-
 export default Ember.Object.extend({
   find: function(name, id){
     /* jshint unused: false */
@@ -27,7 +25,7 @@ export default Ember.Object.extend({
   findQuery: function(name, query) {
     /* jshint unused: false */
     return ajax("https://api.parse.com/1/classes/Bookmark", {
-      data: $.param({
+      data: Ember.$.param({
               where: JSON.stringify(query)
             })
     }).then(function(response){
