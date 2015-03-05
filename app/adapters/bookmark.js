@@ -24,6 +24,21 @@ export default Ember.Object.extend({
     });
   },
 
+  findQuery: function(name, query) {
+    /* jshint unused: false */
+    return ajax("https://api.parse.com/1/classes/Bookmark", {
+      data: $.param({
+              where: JSON.stringify(query)
+            })
+    }).then(function(response){
+      return response.results.map(function(bookmark) {
+        bookmark.id = bookmark.objectId;
+        delete bookmark.objectId;
+        return bookmark;
+      });
+    });
+  },
+
   destroy: function(name, record) {
     /* jshint unused: false */
     return ajax({

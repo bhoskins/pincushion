@@ -28,6 +28,11 @@ export default Ember.Object.extend({
     });
   },
 
+  findQuery: function(name, query){
+    var adapter = this.container.lookup('adapter:' + name);
+    return adapter.findQuery(name, query);
+  },
+
   destroy: function(name, record) {
     var adapter = this.container.lookup('adapter:' + name);
     return adapter.destroy(name, record).then(function() {
