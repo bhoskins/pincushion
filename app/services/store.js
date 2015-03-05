@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import IdentityMap from '../lib/identity-map';
+import IdentityMap from '../models/identity-map';
 
 var identityMap = IdentityMap.create();
 

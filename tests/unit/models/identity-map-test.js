@@ -97,3 +97,11 @@ test('clearing a type', function(assert){
   this.subject().clear('type');
   assert.equal(typeArray.length, 0);
 });
+
+test('private id should not be enumerable', function(assert) {
+  this.subject().set('type', 'someid', {});
+  var thing = this.subject().get('type', 'someid');
+
+  assert.strictEqual(thing.hasOwnProperty('__jsim_meta_id'), true);
+  assert.strictEqual(thing.propertyIsEnumerable('__jsim_meta_id'), false);
+});

@@ -23,7 +23,10 @@ export default Ember.Object.extend({
       cached.setProperties(record);
     } else {
       var v = record instanceof(Ember.Object) ? record : Ember.Object.create(record);
-      v.__jsim_meta_id = id;
+      Object.defineProperty(v, '__jsim_meta_id', {
+        value: id,
+        configurable: true
+      });
       typeArray.addObject(v);
     }
   },
