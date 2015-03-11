@@ -1,1 +1,7 @@
 {{outlet}}
+
+{{#if session.isAuthenticated}}
+  <a {{ action 'invalidateSession' }} href="javascript:void(0)">Logout</a>
+{{else}}
+  {{#link-to 'login'}}Login{{/link-to}}
+{{/if}}
