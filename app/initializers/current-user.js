@@ -1,7 +1,7 @@
 import Ember from "ember";
 import Session from "simple-auth/session";
 
-export function initialize(container, application) {
+export function initialize(container) {
   Session.reopen({
     setCurrentUser: function() {
       var id = this.get("objectId");
