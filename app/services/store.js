@@ -4,47 +4,51 @@ import IdentityMap from '../models/identity-map';
 var identityMap = IdentityMap.create();
 
 export default Ember.Object.extend({
-  find: function(name, id){
+  find: function(type, id){
 
-    var cached = identityMap.get(name, id);
+    var cached = identityMap.get(type, id);
     if(cached) { return Ember.RSVP.resolve(cached); }
 
-    var adapter = this.container.lookup('adapter:' + name);
-    return adapter.find(name, id).then(function(record) {
-      identityMap.set(name, id, record);
+    var adapter = this.container.lookup('adapter:' + type);
+    return adapter.find(type, id).then(function(record) {
+      identityMap.set(type, id, record);
       return record;
     });
   },
 
-  findAll: function(name){
-    var adapter = this.container.lookup('adapter:' + name);
-    return adapter.findAll(name).then(function(records) {
-      identityMap.clear(name);
+  findAll: function(type){
+    var adapter = this.container.lookup('adapter:' + type);
+    return adapter.findAll(type).then(function(records) {
+      identityMap.clear(type);
       records.forEach(function(r) {
-        identityMap.set(name, r.id, r);
+        identityMap.set(type, r.id, r);
       });
 
-      return identityMap.get(name);
+      return identityMap.get(type);
     });
   },
 
-  findQuery: function(name, query){
-    var adapter = this.container.lookup('adapter:' + name);
-    return adapter.findQuery(name, query);
+  findQuery: function(type, query){
+    var adapter = this.container.lookup('adapter:' + type);
+    return adapter.findQuery(type, query);
   },
 
-  destroy: function(name, record) {
-    var adapter = this.container.lookup('adapter:' + name);
-    return adapter.destroy(name, record).then(function() {
-      identityMap.remove(name, record);
+  destroy: function(type, record) {
+    var adapter = this.container.lookup('adapter:' + type);
+    return adapter.destroy(type, record).then(function() {
+      identityMap.remove(type, record);
     });
   },
 
-  save: function(name, record) {
-    var adapter = this.container.lookup('adapter:' + name);
-    return adapter.save(name, record).then(function() {
-      identityMap.set(name, record.id, record);
+  save: function(type, record) {
+    var adapter = this.container.lookup('adapter:' + type);
+    return adapter.save(type, record).then(function() {
+      identityMap.set(type, record.id, record);
       return record;
     });
+  },
+
+  push: function(type, record) {
+    return identityMap.set(type, record.id, record);
   }
 });
