@@ -13,6 +13,7 @@ Router.map(function() {
   this.route('tags', function() {
     this.route('show', { path: '/:tag' });
   });
+  this.route('login');
 });
 
 export default Router;
