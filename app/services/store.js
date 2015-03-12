@@ -50,5 +50,15 @@ export default Ember.Object.extend({
 
   push: function(type, record) {
     return identityMap.set(type, record.id, record);
+  },
+
+  createRecord: function(type, properties){
+    var klass = this.modelFor(type);
+    var props = Ember.copy(properties) || {};
+    return klass.create(props);
+  },
+
+  modelFor: function(type) {
+    return this.container.lookupFactory('model:' + type);
   }
 });
