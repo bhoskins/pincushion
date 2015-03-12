@@ -9,10 +9,9 @@ export default Ember.Route.extend({
 
   actions: {
     createBookmark: function(){
-      var self = this;
-      this.store.save('bookmark', this.modelFor('new')).then(function(){
-        self.transitionTo('index');
-      });
+      this.modelFor('new').save().then(function() {
+        this.transitionTo('index');
+      }.bind(this));
     }
   }
 });

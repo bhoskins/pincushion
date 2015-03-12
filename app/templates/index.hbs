@@ -9,6 +9,7 @@
   <li>
     {{link-to bookmark.model.url 'show' bookmark}}
     <button {{action 'destroy'}}>X</button>
+    <button {{action 'addFavorite'}}>Favorite</button>
   </li>
 {{/each}}
 </ul>
