@@ -44,10 +44,13 @@ export default Ember.Object.extend({
 
   save: function(type, record) {
     var adapter = this.container.lookup('adapter:' + type);
-    return adapter.save(type, record).then(function() {
+    var serialized = record.toJSON();
+
+    return adapter.save(type, serialized).then(function(recordData) {
+      var record = this.createRecord(type, recordData);
       identityMap.set(type, record.id, record);
-      return record;
-    });
+      return identityMap.get(type, record.id);
+    }.bind(this));
   },
 
   push: function(type, record) {
@@ -56,8 +59,7 @@ export default Ember.Object.extend({
 
   createRecord: function(type, properties){
     var klass = this.modelFor(type);
-    var props = Ember.copy(properties) || {};
-    return klass.create(props);
+    return klass.create(properties);
   },
 
   modelFor: function(type) {

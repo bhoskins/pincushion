@@ -10,6 +10,7 @@ export default Ember.Object.extend({
   },
 
   toJSON: function(){
+    console.log('User#toJSON');
     return this;
   }
 });
